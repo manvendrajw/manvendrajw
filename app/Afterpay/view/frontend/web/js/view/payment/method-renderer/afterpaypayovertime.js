@@ -185,7 +185,7 @@ define(
                   
                     //CountryCode Object to pass in initialize function.
                     var countryCurrencyMapping ={AUD:"AU", NZD:"NZ", USD:"US",CAD:"CA"};
-                    var countryCode = (afterpay.baseCurrencyCode in countryCurrencyMapping)? {countryCode: countryCurrencyMapping[afterpay.baseCurrencyCode]}:{};
+                    var countryCode = (afterpay.currencyCode in countryCurrencyMapping)? {countryCode: countryCurrencyMapping[afterpay.currencyCode]}:{};
 					
                     //Update billing address of the quote
 					setBillingAddressAction(globalMessageList);

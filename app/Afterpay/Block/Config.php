@@ -4,7 +4,6 @@ namespace Afterpay\Afterpay\Block;
 
 use Magento\Framework\View\Element\Template;
 use Afterpay\Afterpay\Model\Config\Payovertime;
-use Afterpay\Afterpay\Model\Payovertime as AfterpayPayovertime;
 use Magento\Framework\Json\Helper\Data;
 
 class Config extends Template
@@ -30,13 +29,11 @@ class Config extends Template
         Payovertime $payovertime,
         Data $dataHelper,
         Template\Context $context,
-        AfterpayPayovertime $afterpayPayovertime,
         array $data
     ) {
     
         $this->_payOverTime = $payovertime;
         $this->_dataHelper = $dataHelper;
-        $this->afterpayPayovertime = $afterpayPayovertime;
 
         parent::__construct($context, $data);
     }
@@ -62,7 +59,12 @@ class Config extends Template
      */
 	public function checkCurrency()
     {
-        return $this->afterpayPayovertime->canUseForCurrency($this->_payOverTime->getCurrencyCode()) && $this->_payOverTime->isActive();
-		
+		$supportedCurrency=['AUD','NZD','USD','CAD'];
+		if(in_array($this->_payOverTime->getCurrencyCode(),$supportedCurrency)){
+			return true;
+		}
+		else{
+			return false;
+		}
     }
 }
